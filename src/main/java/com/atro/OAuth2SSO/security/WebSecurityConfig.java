@@ -74,7 +74,32 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		  return filter;
 
 		}
+	/* 
+	 * Filter to handle
+	 *  Facebook SSO
+	 *   only.
+	 *    */
+	
+/*	private Filter ssoFilter() {
+		  OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/facebook");
+		  OAuth2RestTemplate facebookTemplate = new OAuth2RestTemplate(facebook(), oauth2ClientContext);
+		  facebookFilter.setRestTemplate(facebookTemplate);
+		  UserInfoTokenServices tokenServices = new UserInfoTokenServices(facebookResource().getUserInfoUri(), facebook().getClientId());
+		  tokenServices.setRestTemplate(facebookTemplate);
+		  facebookFilter.setTokenServices(tokenServices);
+		  return facebookFilter;
+		}*/
 
+	
+	@Bean
+	public FilterRegistrationBean<OAuth2ClientContextFilter> oauth2ClientFilterRegistration(
+			OAuth2ClientContextFilter filter) {
+		FilterRegistrationBean<OAuth2ClientContextFilter> registration = new FilterRegistrationBean<OAuth2ClientContextFilter>();
+		registration.setFilter(filter);
+		registration.setOrder(-100);
+		return registration;
+	}
+	
 	@Bean
 	@ConfigurationProperties("facebook.client")
 	public AuthorizationCodeResourceDetails facebook() {
@@ -99,13 +124,6 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new ResourceServerProperties();
 	}
 
-	@Bean
-	public FilterRegistrationBean<OAuth2ClientContextFilter> oauth2ClientFilterRegistration(
-			OAuth2ClientContextFilter filter) {
-		FilterRegistrationBean<OAuth2ClientContextFilter> registration = new FilterRegistrationBean<OAuth2ClientContextFilter>();
-		registration.setFilter(filter);
-		registration.setOrder(-100);
-		return registration;
-	}
+
 
 }
