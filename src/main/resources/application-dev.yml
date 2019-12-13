@@ -1,8 +1,13 @@
+spring:
+  profiles:
+    active: dev
+    include: default
+
 security:
   oauth2:
     client:
       clientId: 751305585370093
-      clientSecret: ${SECRET}
+      clientSecret: e17aeda7e6dc414f48fbaa7916f4d8ce
       accessTokenUri: https://graph.facebook.com/oauth/access_token
       userAuthorizationUri: https://www.facebook.com/dialog/oauth
       tokenName: oauth_token
@@ -10,4 +15,4 @@ security:
       clientAuthenticationScheme: form
     resource:
       userInfoUri: https://graph.facebook.com/me
-      
+
