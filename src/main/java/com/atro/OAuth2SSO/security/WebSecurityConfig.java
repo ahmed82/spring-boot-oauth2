@@ -86,7 +86,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public ResourceServerProperties facebookResource() {
 		return new ResourceServerProperties();
 	}
-	
+
 	@Bean
 	@ConfigurationProperties("github.client")
 	public AuthorizationCodeResourceDetails github() {
@@ -99,14 +99,13 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new ResourceServerProperties();
 	}
 
-	 
-	   @Bean
-	   public FilterRegistrationBean<OAuth2ClientContextFilter>
-	   oauth2ClientFilterRegistration( OAuth2ClientContextFilter filter) {
-	   FilterRegistrationBean<OAuth2ClientContextFilter> registration = new
-	   FilterRegistrationBean<OAuth2ClientContextFilter>();
-	   registration.setFilter(filter); registration.setOrder(-100); return
-	   registration; }
-	  
+	@Bean
+	public FilterRegistrationBean<OAuth2ClientContextFilter> oauth2ClientFilterRegistration(
+			OAuth2ClientContextFilter filter) {
+		FilterRegistrationBean<OAuth2ClientContextFilter> registration = new FilterRegistrationBean<OAuth2ClientContextFilter>();
+		registration.setFilter(filter);
+		registration.setOrder(-100);
+		return registration;
+	}
 
 }
